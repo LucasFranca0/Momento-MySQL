@@ -85,7 +85,41 @@ podendo definir a ordem do resultados como crescente(ASC) ou decrescente(DESC).
 -- Ordena pelo campo "salario" ordem decrescente(DESC) e limite(limit) de resultados = 10
 -- Caso não especificar limit, irá listar todas as linhas
 SELECT * FROM funcionarios WHERE gerente_id = 100 ORDER BY salario DESC limit 10; -- Seleciona todos os registros que tem o gerente_id = 100 e ordena pelo Salario
-
+--
+--
+--
+-- /* GROUP BY /* --
+/*
+GROUP BY identifica uma coluna selecionada a ser usada para agrupar os resultados. 
+Separa os dados em grupos pelos valores da coluna especificada e retorna uma linha
+de resultados para cada grupo.
+--
+Utilizamos o GROUP BY quando estamos utilizando uma função de agregação(SUM, MAX, AVG,
+COUNT...), então precisamos especificar no GROUP BY por quais campos queremos realizar
+o agrupamento dos registros que estão sendo agregados.
+*/
+-- *** EXEMPLO ***
+-- Qual região possui mais países?
+SELECT regiao.regiao_name, COUNT(paises.regiao_id) FROM paises
+INNER JOIN regiao WHERE regiao.regiao_id = paises.regiao_id 
+GROUP BY regiao.regiao_name ORDER BY COUNT(paises.regiao_id) DESC;
+-- Seleciona a coluna regiao_name da tabela regiao
+-- COUNT(paises.regiao_id) faz a contagem de todas as linhas da coluna regiao_id da tabela paises. 
+-- INNER JOIN faz a junção das tabelas paises e regiao.
+-- WHERE(ONDE) regiao(tabela).regiao_id(coluna) = paises(tabela).regiao_id
+-- GROUP BY regiao.regiao_name; Separa os dados por grupos, nesse caso, cada regiao_name terá os dados retornados de
+-- forma individual.
+-- ORDER BY DESC, ordena a exibição do maior para o menor
+-- 
+-- *** Sem utilizar o GROUP BY, o COUNT iria retornar o valor total, sem especificar os dados individuais ***
+-- 
+--
+--  Qual departamento tem mais funcionários? 
+SELECT departamento_name, COUNT(funcionarios.departamento_id) 
+FROM funcionarios INNER JOIN departamento
+WHERE departamento.departamento_id = funcionarios.departamento_id
+GROUP BY departamento.departamento_name
+ORDER BY COUNT(funcionarios.departamento_id) DESC;
 -- ------------------------------------------------------------------------------------------------------------------------------------------------
 --
 --
