@@ -1,3 +1,6 @@
+-- ------ CÓDIGO COMENTADO -----------
+
+
 -- ------- SELECT ----------------------
 --
 -- Seleção por id 
@@ -24,13 +27,23 @@ SELECT COUNT(*) FROM funcionarios;  -- Contagem geral
 -- Conta quantos funcionarios tem no departamento de id = 6
 SELECT COUNT(*) FROM funcionarios WHERE departamento_id LIKE '%10%';  -- Contagem geral com condições WHERE e LIKE
 --
--- Seleção com INNER JOIN
+-- Conta qual região tem mais países
+SELECT regiao.regiao_name, COUNT(paises.regiao_id) FROM paises INNER JOIN regiao WHERE regiao.regiao_id = paises.regiao_id GROUP BY regiao.regiao_name;
+--
+--
+--  ***** Seleção com INNER JOIN *****
 SELECT dependentes.primeiro_nome, dependentes.sobrenome FROM funcionarios INNER JOIN dependentes WHERE funcionarios.funcionario_id = dependentes.funcionario_id AND funcionarios.primeiro_nome = 'Jose Manuel' AND funcionarios.sobrenome = 'Urman';
 --
 -- Seleciona da tabela dependentes o primeiro nome e o sobrenome e "junta" com a tabela funcionarios
 -- ONDE(WHERE) funcionario_id for = funcionario_id da tabela dependentes E(AND) primeiro_nome e sobrenome
 -- da tabela funcionarios. 
 -- 
+-- 
+-- Exibe o nome de cada funcionário acompanhado de seus dependentes
+SELECT funcionarios.primeiro_nome as nome, funcionarios.sobrenome, dependentes.primeiro_nome as dependentes 
+FROM funcionarios INNER JOIN dependentes WHERE funcionarios.funcionario_id = dependentes.funcionario_id;
+--
+--
 /* ----- AVG() -----
 -- A AVG()função retorna o valor médio de uma coluna numérica. 
 **** SINTAXE *****
